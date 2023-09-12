@@ -1,14 +1,13 @@
-import { nanoid } from 'nanoid';
 import style from './ContactForm.module.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
-import { setAddNewContact } from 'redux/contactsReducer';
+import { requestAddContact } from 'redux/operations';
 
 const ContactForm = () => {
   const [contact, setContact] = useState({
     name: '',
-    number: '',
+    phone: '',
   });
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -20,26 +19,26 @@ const ContactForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = contact;
-    onAddContact(name, number);
-    setContact({ name: '', number: '' });
+    const { name, phone } = contact;
+    onAddContact(name, phone);
+    setContact({ name: '', phone: '' });
   };
 
-  const onAddContact = (name, number) => {
-    const contactExists = contacts.some(
-      contact => contact.name === name && contact.number === number
+  const onAddContact = (name, phone) => {
+    const contactExists = contacts.items.some(
+      contact => contact.name === name && contact.phone === phone
     );
 
     if (contactExists) {
       alert(`${name} is already in contacts`);
       return;
     }
-    const newContact = { id: nanoid(), name, number };
+    const newContact = { name, phone };
 
-    dispatch(setAddNewContact(newContact));
+    dispatch(requestAddContact(newContact));
   };
 
-  const { name, number } = contact;
+  const { name, phone } = contact;
   return (
     <div>
       <form className={style.form} onSubmit={handleSubmit}>
@@ -62,11 +61,11 @@ const ContactForm = () => {
           <input
             className={style.formInput}
             type="tel"
-            name="number"
+            name="phone"
             pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            value={number}
+            value={phone}
             onChange={handleChange}
           />
         </label>
