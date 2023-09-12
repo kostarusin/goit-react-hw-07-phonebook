@@ -5,7 +5,7 @@ const Error = ({ error }) => {
         fontSize: 'large',
       }}
     >
-      Sorry. {error} 😭
+      Sorry. {error}. Try one more time.
     </p>
   );
 };
