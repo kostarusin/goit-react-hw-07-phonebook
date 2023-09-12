@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
 import { useEffect } from 'react';
 import { fetchContacts, requestDeleteContact } from 'redux/operations';
+import Loader from 'components/Loader/Loader';
 
 const ContactList = () => {
   const filter = useSelector(getFilter);
@@ -24,7 +25,7 @@ const ContactList = () => {
 
   return (
     <>
-      <ul className={style.list}>
+    { contacts.isLoading ? <Loader/> :  <ul className={style.list}>
         {filteredContacts.map(contact => {
           const { id, name, phone } = contact;
           return (
@@ -42,7 +43,8 @@ const ContactList = () => {
             </li>
           );
         })}
-      </ul>
+      </ul>}
+     
     </>
   );
 };

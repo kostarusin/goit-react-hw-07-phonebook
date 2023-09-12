@@ -26,43 +26,43 @@ const contactsActionsSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(fetchContacts.pending, state => {
-        state.isLoading = true;
-        state.error = null;
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.contacts.isLoading = false;
         state.contacts.items = action.payload;
       })
       .addCase(fetchContacts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+        state.contacts.isLoading = false;
+        state.contacts.error = action.payload;
       })
 
       .addCase(requestAddContact.pending, state => {
-        state.isLoading = true;
-        state.error = null;
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
       })
       .addCase(requestAddContact.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.contacts.isLoading = false;
         state.contacts.items.push(action.payload);
       })
       .addCase(requestAddContact.rejected, (state, action) => {
-        state.isLoading = false;
+        state.contacts.isLoading = false;
         state.error = action.payload;
       })
       .addCase(requestDeleteContact.pending, state => {
-        state.isLoading = true;
-        state.error = null;
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
       })
       .addCase(requestDeleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.contacts.isLoading = false;
         state.contacts.items = state.contacts.items.filter(
           contact => contact.id !== action.payload.id
         );
       })
       .addCase(requestDeleteContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+        state.contacts.isLoading = false;
+        state.contacts.error = action.payload;
       }),
 });
 
