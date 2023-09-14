@@ -26,7 +26,9 @@ const ContactForm = () => {
 
   const onAddContact = (name, phone) => {
     const contactExists = contacts.items.some(
-      contact => contact.name === name && contact.phone === phone
+      contact =>
+        contact.name.toLowerCase() === name.toLowerCase() ||
+        contact.phone === phone
     );
 
     if (contactExists) {
@@ -71,7 +73,7 @@ const ContactForm = () => {
         </label>
 
         <button className={style.formButton} type="submit">
-          Add contact 
+          Add contact
         </button>
       </form>
     </div>
